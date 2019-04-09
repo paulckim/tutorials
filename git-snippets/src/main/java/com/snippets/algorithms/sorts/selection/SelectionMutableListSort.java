@@ -1,10 +1,10 @@
 package com.snippets.algorithms.sorts.selection;
 
-import com.snippets.algorithms.sorts.SortAlgorithm;
+import com.snippets.algorithms.sorts.MutableListSort;
 
 import java.util.List;
 
-public class SelectionSort <T extends Comparable<? super T>> implements SortAlgorithm<T> {
+public class SelectionMutableListSort<T extends Comparable<? super T>> implements MutableListSort<T> {
 
     @Override
     public void sort(List<T> unsorted) {

@@ -2,7 +2,7 @@ package com.snippets.algorithms.sorts.bubble;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.snippets.algorithms.sorts.SortAlgorithm;
+import com.snippets.algorithms.sorts.MutableListSort;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class NaiveBubbleSortTest {
     @Test
     public void testRandomElementsASC() {
         List<Integer> unsorted = new ArrayList<>(simpleUnsorted);
-        SortAlgorithm<Integer> sortImpl = new NaiveBubbleSort<>();
+        MutableListSort<Integer> sortImpl = new NaiveBubbleMutableListSort<>();
         sortImpl.sort(unsorted);
         assertThat(unsorted).isEqualTo(simpleSortedASC);
     }
@@ -36,7 +36,7 @@ public class NaiveBubbleSortTest {
     @Test
     public void testBestCaseASC() {
         List<Integer> unsorted = new ArrayList<>(simpleSortedDES);
-        SortAlgorithm<Integer> sortImpl = new NaiveBubbleSort<>();
+        MutableListSort<Integer> sortImpl = new NaiveBubbleMutableListSort<>();
         sortImpl.sort(unsorted);
         assertThat(unsorted).isEqualTo(simpleSortedASC);
     }
@@ -44,7 +44,7 @@ public class NaiveBubbleSortTest {
     @Test
     public void testWorstCaseASC() {
         List<Integer> unsorted = new ArrayList<>(simpleUnsorted);
-        SortAlgorithm<Integer> sortImpl = new NaiveBubbleSort<>();
+        MutableListSort<Integer> sortImpl = new NaiveBubbleMutableListSort<>();
         sortImpl.sort(unsorted);
         assertThat(unsorted).isEqualTo(simpleSortedASC);
     }
