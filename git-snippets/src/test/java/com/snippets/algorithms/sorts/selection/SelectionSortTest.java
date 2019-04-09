@@ -1,6 +1,6 @@
 package com.snippets.algorithms.sorts.selection;
 
-import com.snippets.algorithms.sorts.SortAlgorithm;
+import com.snippets.algorithms.sorts.MutableListSort;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class SelectionSortTest {
     @Test
     public void testRandomElementsASC() {
         List<Integer> unsorted = new ArrayList<>(simpleUnsorted);
-        SortAlgorithm<Integer> sortImpl = new SelectionSort<>();
+        MutableListSort<Integer> sortImpl = new SelectionMutableListSort<>();
         sortImpl.sort(unsorted);
         assertThat(unsorted).isEqualTo(simpleSortedASC);
     }
@@ -36,7 +36,7 @@ public class SelectionSortTest {
     @Test
     public void testBestCaseASC() {
         List<Integer> unsorted = new ArrayList<>(simpleSortedDES);
-        SortAlgorithm<Integer> sortImpl = new SelectionSort<>();
+        MutableListSort<Integer> sortImpl = new SelectionMutableListSort<>();
         sortImpl.sort(unsorted);
         assertThat(unsorted).isEqualTo(simpleSortedASC);
     }
@@ -44,7 +44,7 @@ public class SelectionSortTest {
     @Test
     public void testWorstCaseASC() {
         List<Integer> unsorted = new ArrayList<>(simpleUnsorted);
-        SortAlgorithm<Integer> sortImpl = new SelectionSort<>();
+        MutableListSort<Integer> sortImpl = new SelectionMutableListSort<>();
         sortImpl.sort(unsorted);
         assertThat(unsorted).isEqualTo(simpleSortedASC);
     }

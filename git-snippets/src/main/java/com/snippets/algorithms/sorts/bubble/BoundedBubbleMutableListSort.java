@@ -1,29 +1,30 @@
 package com.snippets.algorithms.sorts.bubble;
 
-import com.snippets.algorithms.sorts.SortAlgorithm;
+import com.snippets.algorithms.sorts.MutableListSort;
 
 import java.util.List;
 
-public class NaiveBubbleSort<T extends Comparable<? super T>> implements SortAlgorithm<T> {
+public class BoundedBubbleMutableListSort<T extends Comparable<? super T>> implements MutableListSort<T> {
 
     @Override
     public void sort(List<T> unsorted) {
-        boolean wasSwapped = true;
-        while(wasSwapped) {
-            wasSwapped = bubble(unsorted);
+        for(int upper = unsorted.size(); upper >= 0; --upper) {
+            boolean wasSwapped = bubble(unsorted, upper);
+            if(!wasSwapped) return;
         }
     }
 
-    private boolean bubble(List<T> unsorted) {
+    private boolean bubble(List<T> unsorted, int upperBound) {
         boolean wasSwapped = false;
-        for(int i = 1; i < unsorted.size(); ++i) {
+        for(int i = 1; i < upperBound; ++i) {
             T prevEle = unsorted.get(i - 1);
-            T currEle = unsorted.get((i));
+            T currEle = unsorted.get(i);
             if(prevEle.compareTo(currEle) > 0) {
                 swap(unsorted, i - 1, i);
                 wasSwapped = true;
             }
         }
+
         return wasSwapped;
     }
 

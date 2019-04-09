@@ -1,10 +1,10 @@
 package com.snippets.algorithms.sorts.insertion;
 
-import com.snippets.algorithms.sorts.SortAlgorithm;
+import com.snippets.algorithms.sorts.MutableListSort;
 
 import java.util.List;
 
-public class InsertionSort<T extends Comparable<? super T>> implements SortAlgorithm<T> {
+public class InsertionMutableListSort<T extends Comparable<? super T>> implements MutableListSort<T> {
 
     private static final int LOWER_BOUND = 0;
     private static final int START_INDEX = 1;

@@ -1,18 +1,18 @@
-package com.snippets.algorithms.sorts.insertion;
+package com.snippets.algorithms.sorts.merge;
 
-import com.snippets.algorithms.sorts.MutableListSort;
+import com.snippets.algorithms.sorts.ImmutableListSort;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InsertionSortTest {
+public class RecursiveMergeSortTest {
 
     private static List<Integer> simpleUnsorted = new ArrayList<>(Arrays.asList(3, 5, 2, 1, 7, 6, 3));
     private static List<Integer> simpleSortedASC;
@@ -29,25 +29,25 @@ public class InsertionSortTest {
     @Test
     public void testRandomElementsASC() {
         List<Integer> unsorted = new ArrayList<>(simpleUnsorted);
-        MutableListSort<Integer> sortImpl = new InsertionMutableListSort<>();
-        sortImpl.sort(unsorted);
-        assertThat(unsorted).isEqualTo(simpleSortedASC);
+        ImmutableListSort<Integer> sortImpl = new RecursiveMergeSort<>();
+        List<Integer> sorted = sortImpl.sort(unsorted);
+        assertThat(sorted).isEqualTo(simpleSortedASC);
     }
 
     @Test
     public void testBestCaseASC() {
         List<Integer> unsorted = new ArrayList<>(simpleSortedDES);
-        MutableListSort<Integer> sortImpl = new InsertionMutableListSort<>();
-        sortImpl.sort(unsorted);
-        assertThat(unsorted).isEqualTo(simpleSortedASC);
+        ImmutableListSort<Integer> sortImpl = new RecursiveMergeSort<>();
+        List<Integer> sorted = sortImpl.sort(unsorted);
+        assertThat(sorted).isEqualTo(simpleSortedASC);
     }
 
     @Test
     public void testWorstCaseASC() {
         List<Integer> unsorted = new ArrayList<>(simpleUnsorted);
-        MutableListSort<Integer> sortImpl = new InsertionMutableListSort<>();
-        sortImpl.sort(unsorted);
-        assertThat(unsorted).isEqualTo(simpleSortedASC);
+        ImmutableListSort<Integer> sortImpl = new RecursiveMergeSort<>();
+        List<Integer> sorted = sortImpl.sort(unsorted);
+        assertThat(sorted).isEqualTo(simpleSortedASC);
     }
 
 }
