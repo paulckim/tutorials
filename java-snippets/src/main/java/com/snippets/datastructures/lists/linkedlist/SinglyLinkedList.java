@@ -45,7 +45,25 @@ public class SinglyLinkedList<T> {
     }
 
     public void insert(int index, T value) {
-        //
+        if(!inBounds(index))
+            throw new IndexOutOfBoundsException(
+                    "Cannot retrieve non-existent index=" + index
+            );
+        if(0 == index) {
+            prepend(value);
+            return;
+        }
+        ++size;
+        ListNode<T> currNode = head;
+        for(int i = 1; i < index; ++i)
+            currNode = currNode.getNextNode();
+        ListNode<T> insertNode = new ListNode<>(value);
+        insertNode.setNextNode(currNode.getNextNode());
+        currNode.setNextNode(insertNode);
+    }
+
+    public void remove(int index) {
+        // TODO: implement later
     }
 
     public T get(int index) throws IndexOutOfBoundsException {

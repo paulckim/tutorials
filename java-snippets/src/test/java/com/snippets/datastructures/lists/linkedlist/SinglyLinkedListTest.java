@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SinglyLinkedListTest {
 
-    private static final int[] INPUT_LIST = new int[] { 1, 2, 3, 4, 5 };
+    private static final int[] INPUT_LIST = new int[] { 0, 1, 2, 3, 4 };
 
     @Test
     public void testAppendSingleElement() {
@@ -63,6 +63,48 @@ public class SinglyLinkedListTest {
         // Assert LinkedList element ordering reflects input array
         Iterator<Integer> nodeIterator = list.iterator();
         for(int i = INPUT_LIST.length - 1; i >= 0; --i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+    }
+
+    @Test
+    public void testInsertMiddleSingleElement() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        // Append N elements into new LinkedList
+        for(int i : INPUT_LIST)
+            if(i != 2) list.append(i);
+        // Assert that the length indicates 1 element was excluded
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length - 1);
+        // manually insert INPUT_LIST[2] into the 2 index:
+        list.insert(2, INPUT_LIST[2]);
+        // Assert the length of input is equivalent to LinkedList
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length);
+        // Assert LinkedList element ordering reflects input array
+        Iterator<Integer> nodeIterator = list.iterator();
+        for(int i = 0; i < INPUT_LIST.length; ++i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+    }
+
+    @Test
+    public void testInsertFrontSingleElement() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        // Append N elements into new LinkedList
+        for(int i : INPUT_LIST)
+            if(i != 0) list.append(i);
+        // Assert that the length indicates 1 element was excluded
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length - 1);
+        // manually insert INPUT_LIST[2] into the 2 index:
+        list.insert(0, INPUT_LIST[0]);
+        // Assert the length of input is equivalent to LinkedList
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length);
+        // Assert LinkedList element ordering reflects input array
+        Iterator<Integer> nodeIterator = list.iterator();
+        for(int i = 0; i < INPUT_LIST.length; ++i) {
             int expectedValue = INPUT_LIST[i];
             int actualValue = nodeIterator.next();
             assertThat(actualValue).isEqualTo(expectedValue);
