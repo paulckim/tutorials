@@ -63,7 +63,26 @@ public class SinglyLinkedList<T> {
     }
 
     public void remove(int index) {
-        // TODO: implement later
+        if(!inBounds(index))
+            throw new IndexOutOfBoundsException(
+                    "Cannot retrieve non-existent index=" + index
+            );
+        if(1 == size--) {
+            head = null;
+            return;
+        }
+        if(0 == index) {
+            ListNode<T> nextNode = head.getNextNode();
+            head.setNextNode(null);
+            head = nextNode;
+            return;
+        }
+        ListNode<T> currNode = head;
+        for(int i = 1; i < index; ++i)
+            currNode = currNode.getNextNode();
+        ListNode<T> deletedNode = currNode.getNextNode();
+        currNode.setNextNode(deletedNode.getNextNode());
+        deletedNode.setNextNode(null);
     }
 
     public T get(int index) throws IndexOutOfBoundsException {

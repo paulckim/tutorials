@@ -111,4 +111,114 @@ public class SinglyLinkedListTest {
         }
     }
 
+    @Test
+    public void testInsertBeforeLastSingleElement() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        // Append N elements into new LinkedList
+        for(int i : INPUT_LIST)
+            if(i != INPUT_LIST.length - 2) list.append(i);
+        // Assert that the length indicates 1 element was excluded
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length - 1);
+        // manually insert INPUT_LIST[2] into the 2 index:
+        list.insert(3, INPUT_LIST[3]);
+        // Assert the length of input is equivalent to LinkedList
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length);
+        // Assert LinkedList element ordering reflects input array
+        Iterator<Integer> nodeIterator = list.iterator();
+        for(int i = 0; i < INPUT_LIST.length; ++i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+    }
+
+    @Test
+    public void testRemoveFrontSingleElement() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        int expectedValue = 10;
+        list.append(expectedValue);
+        assertThat(list.size()).isEqualTo(1);
+        Integer actualValue = list.get(0);
+        assertThat(actualValue).isEqualTo(expectedValue);
+        list.remove(0);
+        assertThat(list.size()).isZero();
+    }
+
+    @Test
+    public void testRemoveFrontMultipleElements() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        // Append N elements into new LinkedList
+        for(int i : INPUT_LIST)
+            list.append(i);
+        // Assert the length of input is equivalent to LinkedList
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length);
+        // Assert LinkedList element ordering reflects input array
+        Iterator<Integer> nodeIterator = list.iterator();
+        for(int i = 0; i < INPUT_LIST.length; ++i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+        list.remove(0);
+        // Assert that the length indicates 1 element was removed
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length - 1);
+        nodeIterator = list.iterator();
+        for(int i = 1; i < INPUT_LIST.length; ++i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+    }
+
+    @Test
+    public void testRemoveMiddleMultipleElements() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        // Append N elements into new LinkedList
+        for(int i : INPUT_LIST)
+            list.append(i);
+        // Assert the length of input is equivalent to LinkedList
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length);
+        // Assert LinkedList element ordering reflects input array
+        Iterator<Integer> nodeIterator = list.iterator();
+        for(int i = 0; i < INPUT_LIST.length; ++i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+        list.remove(2);
+        nodeIterator = list.iterator();
+        // Assert that the length indicates 1 element was removed
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length - 1);
+        assertThat(nodeIterator.next()).isEqualTo(INPUT_LIST[0]);
+        assertThat(nodeIterator.next()).isEqualTo(INPUT_LIST[1]);
+        assertThat(nodeIterator.next()).isEqualTo(INPUT_LIST[3]);
+        assertThat(nodeIterator.next()).isEqualTo(INPUT_LIST[4]);
+    }
+
+    @Test
+    public void testRemoveLastMultipleElements() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        // Append N elements into new LinkedList
+        for(int i : INPUT_LIST)
+            list.append(i);
+        // Assert the length of input is equivalent to LinkedList
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length);
+        // Assert LinkedList element ordering reflects input array
+        Iterator<Integer> nodeIterator = list.iterator();
+        for(int i = 0; i < INPUT_LIST.length; ++i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+        list.remove(4);
+        nodeIterator = list.iterator();
+        // Assert that the length indicates 1 element was removed
+        assertThat(list.size()).isEqualTo(INPUT_LIST.length - 1);
+        for(int i = 0; i < INPUT_LIST.length - 1; ++i) {
+            int expectedValue = INPUT_LIST[i];
+            int actualValue = nodeIterator.next();
+            assertThat(actualValue).isEqualTo(expectedValue);
+        }
+    }
+
 }
