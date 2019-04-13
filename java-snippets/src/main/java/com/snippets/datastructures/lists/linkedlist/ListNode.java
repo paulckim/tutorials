@@ -1,4 +1,4 @@
-package com.snippets.datastructures.lists;
+package com.snippets.datastructures.lists.linkedlist;
 
 public class ListNode<T> {
     private T value;

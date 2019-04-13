@@ -1,8 +1,8 @@
-package com.snippets.datastructures.lists;
+package com.snippets.datastructures.lists.linkedlist;
 
 import java.util.Iterator;
 
-public class ListIterator<T> implements Iterator<T> {
+class ListIterator<T> implements Iterator<T> {
     private ListNode<T> currNode;
 
     public ListIterator(ListNode<T> currNode) {

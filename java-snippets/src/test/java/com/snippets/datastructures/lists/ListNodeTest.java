@@ -1,5 +1,6 @@
 package com.snippets.datastructures.lists;
 
+import com.snippets.datastructures.lists.linkedlist.ListNode;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
