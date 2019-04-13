@@ -112,7 +112,7 @@ public class SinglyLinkedListTest {
     }
 
     @Test
-    public void testInsertBeforeLastSingleElement() {
+    public void testInsertBeforeLastMultipleElements() {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
         // Append N elements into new LinkedList
         for(int i : INPUT_LIST)

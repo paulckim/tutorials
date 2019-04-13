@@ -1,13 +1,12 @@
 package com.snippets.datastructures.lists.linkedlist;
 
-import com.snippets.datastructures.lists.ListIterator;
-import com.snippets.datastructures.lists.ListNode;
+import java.util.Iterator;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T> implements Iterable<T> {
     private ListNode<T> head;
     private int size;
 
-    public ListIterator<T> iterator() {
+    public Iterator<T> iterator() {
         return new ListIterator<>(this.head);
     }
 
@@ -91,7 +90,7 @@ public class SinglyLinkedList<T> {
                 "Cannot retrieve non-existent index=" + index
             );
 
-        ListIterator<T> nodeIterator = iterator();
+        Iterator<T> nodeIterator = iterator();
         T value = null;
         for(int i = 0; i <= index; ++i)
         while(nodeIterator.hasNext())
