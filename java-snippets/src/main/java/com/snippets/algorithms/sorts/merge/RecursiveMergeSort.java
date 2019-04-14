@@ -17,7 +17,7 @@ public class RecursiveMergeSort<T extends Comparable<? super T>> implements Immu
     private List<T> mergeSort(List<T> unsorted) {
         if(1 == unsorted.size())
             return unsorted;
-        int midpoint = calcMidPoint(unsorted.size());;
+        int midpoint = calcMidPoint(unsorted.size());
         List<T> lhsList = mergeSort(unsorted.subList(FIRST_ELEMENT, midpoint));
         List<T> rhsList = mergeSort(unsorted.subList(midpoint, unsorted.size()));
         return mergeLists(lhsList, rhsList);
