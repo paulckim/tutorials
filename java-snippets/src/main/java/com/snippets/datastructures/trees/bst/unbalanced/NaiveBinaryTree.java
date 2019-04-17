@@ -1,9 +1,11 @@
-package com.snippets.datastructures.trees.bst;
+package com.snippets.datastructures.trees.bst.unbalanced;
 
-public class BST<T extends Comparable<? super T>> {
-    private int size;
-    private TreeNode<T> root;
+import com.snippets.datastructures.trees.bst.AbstractTree;
+import com.snippets.datastructures.trees.bst.TreeNode;
 
+public class NaiveBinaryTree<T extends Comparable<? super T>> extends AbstractTree<T> {
+
+    @Override
     public void add(T value) {
         TreeNode<T> currNode = root;
         if(null == currNode) {
@@ -32,6 +34,7 @@ public class BST<T extends Comparable<? super T>> {
         }
     }
 
+    @Override
     public void remove(T value) {
         TreeNode<T> currNode = root;
         if(null == currNode)
@@ -61,26 +64,7 @@ public class BST<T extends Comparable<? super T>> {
         }
     }
 
-    public boolean contains(T value) {
-        TreeNode<T> currNode = root;
-        if(null == currNode)
-            return false;
-        while(value.compareTo(currNode.getValue()) != 0) {
-            if(value.compareTo(currNode.getValue()) < 0) {
-                if(null == currNode.getLeft())
-                    return false;
-                currNode = currNode.getLeft();
-            }
-            else {
-                if(null == currNode.getRight())
-                    return false;
-                currNode = currNode.getRight();
-            }
-        }
-        return true;
-    }
-
-    public TreeNode<T> reorder(TreeNode<T> left, TreeNode<T> right) {
+    private TreeNode<T> reorder(TreeNode<T> left, TreeNode<T> right) {
         TreeNode<T> greatestLeftNode = getGreatestNode(left);
         if(null == greatestLeftNode)
             return right;
@@ -88,14 +72,10 @@ public class BST<T extends Comparable<? super T>> {
         return left;
     }
 
-    public TreeNode<T> getGreatestNode(TreeNode<T> subtree) {
+    private TreeNode<T> getGreatestNode(TreeNode<T> subtree) {
         TreeNode<T> currNode = subtree;
         while(null != currNode && null != currNode.getRight())
             currNode = currNode.getRight();
         return currNode;
-    }
-
-    public int size() {
-        return size;
     }
 }
