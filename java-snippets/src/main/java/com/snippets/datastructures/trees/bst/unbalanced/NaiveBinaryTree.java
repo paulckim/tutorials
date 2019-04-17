@@ -5,6 +5,8 @@ import com.snippets.datastructures.trees.bst.TreeNode;
 
 public class NaiveBinaryTree<T extends Comparable<? super T>> extends AbstractTree<T> {
 
+    private TreeNode<T> root;
+
     @Override
     public void add(T value) {
         TreeNode<T> currNode = root;

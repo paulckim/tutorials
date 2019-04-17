@@ -1,6 +1,7 @@
 package com.snippets.datastructures.trees.bst;
 
 public abstract class AbstractTree<T extends Comparable<? super T>> implements ITree<T> {
+
     protected TreeNode<T> root;
     protected int size;
 
@@ -40,4 +41,5 @@ public abstract class AbstractTree<T extends Comparable<? super T>> implements I
     public int size() {
         return this.size;
     }
+
 }

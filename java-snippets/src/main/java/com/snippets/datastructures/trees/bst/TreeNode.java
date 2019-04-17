@@ -2,8 +2,8 @@ package com.snippets.datastructures.trees.bst;
 
 public class TreeNode<T> {
     private T value;
-    private TreeNode<T> left;
-    private TreeNode<T> right;
+    protected TreeNode<T> left;
+    protected TreeNode<T> right;
 
     public TreeNode(T value) {
         this.value = value;
