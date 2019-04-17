@@ -81,9 +81,6 @@ public class BST<T extends Comparable<? super T>> {
     }
 
     public TreeNode<T> reorder(TreeNode<T> left, TreeNode<T> right) {
-        /**
-         * TODO: logic involving getGreatestNode
-         */
         TreeNode<T> greatestLeftNode = getGreatestNode(left);
         if(null == greatestLeftNode)
             return right;
