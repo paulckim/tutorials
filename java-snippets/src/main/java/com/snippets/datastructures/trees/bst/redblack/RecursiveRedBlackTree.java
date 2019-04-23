@@ -24,7 +24,7 @@ public class RecursiveRedBlackTree<T extends Comparable<? super T>> extends Abst
         // To continue, grandparent and parent cannot be equal to the value
         if(isValueEqual(grandparent, value)) return;
         // Begin Recursive Insertion:
-        this.root = balancedAdd(grandparent, value);
+        this.root = insert(grandparent, new RBTreeNode<>(value));
         colorRoot();
     }
 
@@ -33,26 +33,25 @@ public class RecursiveRedBlackTree<T extends Comparable<? super T>> extends Abst
         // TODO: implement later
     }
 
-    private RBTreeNode<T> balancedAdd(RBTreeNode<T> grandparent, T value) {
+    private RBTreeNode<T> insert(RBTreeNode<T> grandparent, RBTreeNode<T> insertSubtree) {
         // If the child matches the value, the node already exists in the tree:
-        RBTreeNode<T> parent = isValueLess(grandparent, value)
+        RBTreeNode<T> parent = isNodeLeft(insertSubtree, grandparent)
                 ? grandparent.getLeft() : grandparent.getRight();
-        if(isValueEqual(parent, value)) return grandparent;
-        RBTreeNode<T> child = isValueLess(parent, value)
+        if(isNodeEqual(insertSubtree, parent)) return grandparent;
+        RBTreeNode<T> child = isNodeLeft(insertSubtree, parent)
                 ? parent.getLeft() : parent.getRight();
         if(null == child) {
-            child = new RBTreeNode<>(value);
-            if(isNodeLeft(parent, grandparent)) parent.setLeft(child);
-            else parent.setRight(child);
+            if(isNodeLeft(insertSubtree, parent)) parent.setLeft(insertSubtree);
+            else parent.setRight(insertSubtree);
             ++size;
-            return balance(child, parent, grandparent);
+            return balance(insertSubtree, parent, grandparent);
         }
-        RBTreeNode<T> subtreeRoot = balancedAdd(parent, value);
+        RBTreeNode<T> subtreeRoot = insert(parent, insertSubtree);
         if(isNodeLeft(subtreeRoot, grandparent))
             grandparent.setLeft(subtreeRoot);
         else
             grandparent.setRight(subtreeRoot);
-        RBTreeNode<T> postChild = isValueLess(subtreeRoot, value)
+        RBTreeNode<T> postChild = isNodeLeft(subtreeRoot, insertSubtree)
                 ? subtreeRoot.getLeft() : subtreeRoot.getRight();
         return balance(postChild, subtreeRoot, grandparent);
     }
@@ -152,8 +151,8 @@ public class RecursiveRedBlackTree<T extends Comparable<? super T>> extends Abst
     /**
      * Takes into account null nodes (considered black).
      *
-     * @param node
-     * @return
+     * @param node the node to get the color of
+     * @return true if the node is null or BLACK. Otherwise, returns false.
      */
     private boolean isNodeBlack(RBTreeNode<T> node) {
         return null == node || node.getColor().equals(Color.BLACK);
@@ -161,6 +160,10 @@ public class RecursiveRedBlackTree<T extends Comparable<? super T>> extends Abst
 
     private boolean isNodeLeft(RBTreeNode<T> child, RBTreeNode<T> parent) {
         return child.getValue().compareTo(parent.getValue()) < 0;
+    }
+
+    private boolean isNodeEqual(RBTreeNode<T> child, RBTreeNode<T> parent) {
+        return child.getValue().compareTo(parent.getValue()) == 0;
     }
 
     private boolean isValueLess(RBTreeNode<T> root, T value) {
