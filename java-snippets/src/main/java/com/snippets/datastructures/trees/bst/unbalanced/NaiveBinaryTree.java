@@ -14,8 +14,8 @@ public class NaiveBinaryTree<T extends Comparable<? super T>> extends AbstractTr
             return;
         }
 
-        while(value.compareTo(currNode.getValue()) != 0) {
-            if(value.compareTo(currNode.getValue()) < 0) {
+        while(!isEqual(value, currNode.getValue())) {
+            if(isLess(value, currNode.getValue())) {
                 if(null != currNode.getLeft()) {
                     currNode = currNode.getLeft();
                     continue;
@@ -36,46 +36,69 @@ public class NaiveBinaryTree<T extends Comparable<? super T>> extends AbstractTr
 
     @Override
     public void remove(T value) {
-        TreeNode<T> currNode = root;
-        if(null == currNode)
+        TreeNode<T> parentNode = root;
+        if(null == parentNode)
             return;
-        if(root.getValue().compareTo(value) == 0) {
-            root = reorder(root.getLeft(), root.getRight());
+        if(isEqual(root.getValue(), value)) {
+            root = reorder(root);
+            parentNode.setLeft(null);
+            parentNode.setRight(null);
             --size;
         }
         while(true) {
-            TreeNode<T> nextNode = (value.compareTo(currNode.getValue()) < 0)
-                    ? currNode.getLeft() : currNode.getRight();
-            if(null == nextNode)
+            TreeNode<T> currNode = isLess(value, parentNode.getValue())
+                    ? parentNode.getLeft() : parentNode.getRight();
+            if(null == currNode)
                 return;
-            if(0 != value.compareTo(nextNode.getValue())) {
-                currNode = nextNode;
+            if(!isEqual(value, currNode.getValue())) {
+                parentNode = currNode;
                 continue;
             }
             --size;
-            TreeNode<T> left = nextNode.getLeft();
-            TreeNode<T> right = nextNode.getRight();
-            TreeNode<T> subtree = reorder(left, right);
-            if(nextNode.getValue().compareTo(currNode.getValue()) < 0)
-                currNode.setLeft(subtree);
+            TreeNode<T> subtree = reorder(currNode);
+            if(isLess(currNode.getValue(), parentNode.getValue()))
+                parentNode.setLeft(subtree);
             else
-                currNode.setRight(subtree);
+                parentNode.setRight(subtree);
+            currNode.setLeft(null);
+            currNode.setRight(null);
             return;
         }
     }
 
-    private TreeNode<T> reorder(TreeNode<T> left, TreeNode<T> right) {
-        TreeNode<T> greatestLeftNode = getGreatestNode(left);
-        if(null == greatestLeftNode)
-            return right;
-        greatestLeftNode.setRight(right);
-        return left;
+    private TreeNode<T> reorder(TreeNode<T> deleteNode) {
+        TreeNode<T> left = deleteNode.getLeft();
+        TreeNode<T> right = deleteNode.getRight();
+        /**
+         * If the node to be deleted has, at most, one child.
+         */
+        if(null == right) return left;
+        if(null == left) return right;
+        /**
+         * If the node to be deleted has both children:
+         * 1) Find the smallest node of the right subtree.
+         * 2) Detach the smallest node from the right subtree.
+         * 3) return the minNode
+         */
+        TreeNode<T> minNode = right, parentNode = minNode;
+        while(null != minNode.getLeft()) {
+            parentNode = minNode;
+            minNode = minNode.getLeft();
+        }
+        if(!isEqual(parentNode.getValue(), minNode.getValue())){
+            if(isLess(minNode.getValue(), parentNode.getValue()))
+                parentNode.setLeft(null);
+            else
+                parentNode.setRight(null);
+        }
+        return minNode;
     }
 
-    private TreeNode<T> getGreatestNode(TreeNode<T> subtree) {
-        TreeNode<T> currNode = subtree;
-        while(null != currNode && null != currNode.getRight())
-            currNode = currNode.getRight();
-        return currNode;
+    private boolean isLess(T left, T right) {
+        return 0 > left.compareTo(right);
+    }
+
+    private boolean isEqual(T left, T right) {
+        return 0 == left.compareTo(right);
     }
 }
